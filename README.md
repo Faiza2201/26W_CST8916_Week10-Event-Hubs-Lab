@@ -1,4 +1,4 @@
-# Week 10 Lab – Clickstream Analytics with Azure Event Hubs
+# Assignment 2 – Clickstream Analytics with Azure Event Hubs
 **Student Name**: Faiza Boudehane
 **Student ID**: 041273470
 **Semester**: Winter 2026
