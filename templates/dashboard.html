@@ -109,6 +109,13 @@
     .bar-count { width: 30px; text-align: right; font-size: 0.85rem; color: #8b949e; }
 
     /* ── Event feed ─────────────────────────────────────────── */
+    .feed-device, .feed-browser, .feed-os {
+    color: #8b949e;
+    flex-shrink: 0;
+    width: 80px;
+    text-align: left;
+    font-size: 0.75rem;
+}
     #feed {
       font-family: "Courier New", monospace;
       font-size: 0.78rem;
@@ -262,25 +269,30 @@
 
   // ── Live feed ─────────────────────────────────────────────────
   function renderFeed(events) {
+    function renderFeed(events) {
     const feed = document.getElementById("feed");
     if (!events || events.length === 0) return;
 
     feed.innerHTML = "";
-    // Show newest first
     [...events].reverse().forEach(e => {
-      const ts   = e.timestamp ? e.timestamp.slice(11, 19) : "–";
-      const type = e.event_type || "unknown";
-      const cls  = TYPE_CLASS[type] || "t-unknown";
-      const row  = document.createElement("div");
-      row.className = "feed-row";
-      row.innerHTML = `
-        <span class="feed-ts">${ts}</span>
-        <span class="feed-type ${cls}">${type}</span>
-        <span class="feed-page">${e.page || "–"}</span>
-        <span class="feed-user">${(e.user_id || "–").slice(0, 8)}</span>
-      `;
-      feed.appendChild(row);
+        const ts   = e.timestamp ? e.timestamp.slice(11, 19) : "–";
+        const type = e.event_type || "unknown";
+        const cls  = TYPE_CLASS[type] || "t-unknown";
+
+        const row  = document.createElement("div");
+        row.className = "feed-row";
+        row.innerHTML = `
+            <span class="feed-ts">${ts}</span>
+            <span class="feed-type ${cls}">${type}</span>
+            <span class="feed-page">${e.page || "–"}</span>
+            <span class="feed-user">${(e.user_id || "–").slice(0, 8)}</span>
+            <span class="feed-device">${e.device_type || "–"}</span>
+            <span class="feed-browser">${e.browser || "–"}</span>
+            <span class="feed-os">${e.operating_system || "–"}</span>
+        `;
+        feed.appendChild(row);
     });
+}
   }
 
   // Kick off polling immediately, then repeat
